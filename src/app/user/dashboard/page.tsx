@@ -138,7 +138,6 @@ const CollapsibleRow = ({ college, students, isExpanded, onToggle }: any) => {
 };
 // --- End CollapsibleRow Component ---
 
-
 const StudentDashboard = () => {
   const router = useRouter();
   const [userType] = useState("financial_officer"); // or 'student'
@@ -166,22 +165,25 @@ const StudentDashboard = () => {
         // --- 💡 DATA TRANSFORMATION: Map API keys to component keys ---
         const transformedStudents = rawData.map((student: any) => ({
           // Map 'ID' to 'id'
-          id: student.ID, 
+          id: student.ID,
           // Combine 'first name' and 'second name' into 'name'
-          name: `${student['first name'] || ''} ${student['second name'] || ''}`.trim(), 
+          name: `${student["first name"] || ""} ${
+            student["second name"] || ""
+          }`.trim(),
           // Map 'email' directly
           email: student.email,
-          
-          // 🚨 CRITICAL PLACEHOLDERS: Your API data is missing college info. 
+
+          // 🚨 CRITICAL PLACEHOLDERS: Your API data is missing college info.
           // This must be fixed on the backend for proper grouping.
           // Using a placeholder college for now so the UI groups data.
-          college_id: student.college_id || 'DEFAULT_COLLEGE_ID', 
-          college_name: student.college_name || 'RUB Colleges (Placeholder)', 
+          college_id: student.college_id || "DEFAULT_COLLEGE_ID",
+          college_name: student.college_name || "RUB Colleges (Placeholder)",
 
           // Map other fields (use fallbacks if they might be missing/null)
-          rub_id_card_number: student.rub_id_card_number || student.rubIdCardNumber || 'N/A',
-          phone_number: student.phone_number || student.phoneNumber || 'N/A',
-          program: student.program || 'N/A', // Assuming this field is in the API
+          rub_id_card_number:
+            student.rub_id_card_number || student.rubIdCardNumber || "N/A",
+          phone_number: student.phone_number || student.phoneNumber || "N/A",
+          program: student.program || "N/A", // Assuming this field is in the API
           date_of_birth: student.date_of_birth || student.dateOfBirth || null, // Assuming this field is in the API
           created_at: student.created_at || student.createdAt || null, // Assuming this field is in the API
         }));
@@ -240,16 +242,16 @@ const StudentDashboard = () => {
     const name = student.name?.toLowerCase() || "";
     const email = student.email?.toLowerCase() || "";
     const rubId = student.rub_id_card_number || student.rubIdCardNumber || "";
-    
+
     const matchesSearch =
       name.includes(searchTerm.toLowerCase()) ||
       rubId.toString().includes(searchTerm) ||
       email.includes(searchTerm.toLowerCase());
-      
+
     const collegeId = student.college_id || student.collegeId;
     const matchesCollege =
       selectedCollege === "all" || collegeId === selectedCollege;
-      
+
     return matchesSearch && matchesCollege;
   });
 
@@ -263,14 +265,17 @@ const StudentDashboard = () => {
       }),
     }))
     .filter((group: any) => group.students.length > 0);
-    
-  // If no colleges are defined (e.g., due to missing API data), 
+
+  // If no colleges are defined (e.g., due to missing API data),
   // create a single group for all students under the placeholder college
   if (colleges.length === 0 && filteredStudents.length > 0) {
-      groupedStudents.push({
-          college: { id: 'DEFAULT_COLLEGE_ID', name: 'RUB Students (Placeholder Group)' },
-          students: filteredStudents
-      });
+    groupedStudents.push({
+      college: {
+        id: "DEFAULT_COLLEGE_ID",
+        name: "RUB Students (Placeholder Group)",
+      },
+      students: filteredStudents,
+    });
   }
 
   const totalStudents = filteredStudents.length;
@@ -301,8 +306,8 @@ const StudentDashboard = () => {
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <button 
-                onClick={() => router.push('/user/financial-officer')}
+              <button
+                onClick={() => router.push("/user/financial-officer")}
                 className="flex items-center gap-2 px-4 py-2 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors cursor-pointer"
               >
                 <User className="w-5 h-5 text-blue-600" />
