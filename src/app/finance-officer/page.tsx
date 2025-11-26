@@ -111,6 +111,8 @@ const FinanceOfficerDashboard = () => {
   const [expandedYears, setExpandedYears] = useState<{ [key: string]: boolean }>({});
   const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [csvData, setCsvData] = useState<any[] | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   // Fetch data on component mount
   useEffect(() => {
@@ -151,7 +153,7 @@ const FinanceOfficerDashboard = () => {
         // Group by year level
         const yearsMap: { [key: string]: StudentWithStipend[] } = {};
         programStudents.forEach(student => {
-          const yearLevel = student.profile.yearLevel;
+          const yearLevel = student.profile?.yearLevel || 'Unknown Year';
           if (!yearsMap[yearLevel]) {
             yearsMap[yearLevel] = [];
           }
@@ -226,7 +228,7 @@ const FinanceOfficerDashboard = () => {
         // Group by year level
         const yearsMap: { [key: string]: StudentWithStipend[] } = {};
         programStudents.forEach(student => {
-          const yearLevel = student.profile.yearLevel;
+          const yearLevel = student.profile?.yearLevel || 'Unknown Year';
           if (!yearsMap[yearLevel]) {
             yearsMap[yearLevel] = [];
           }
@@ -295,15 +297,53 @@ const FinanceOfficerDashboard = () => {
 
   const handleCancelFile = () => {
     setSelectedFile(null);
+    setCsvData(null);
+    setIsProcessing(false);
     const fileInput = document.getElementById('csv-upload') as HTMLInputElement;
     if (fileInput) fileInput.value = '';
   };
 
   const handleProceed = () => {
-    if (selectedFile) {
-      // Placeholder for future CSV processing logic
-      alert(`File "${selectedFile.name}" ready for processing. (Feature coming soon)`);
-    }
+    if (!selectedFile) return;
+    
+    setIsProcessing(true);
+    const reader = new FileReader();
+    
+    reader.onload = (e) => {
+      try {
+        const text = e.target?.result as string;
+        
+        // Parse CSV into JSON
+        const rows = text.split('\n').filter(row => row.trim() !== '');
+        
+        // Get headers from first row
+        const headers = rows[0].split(',').map(header => header.trim());
+        
+        // Convert remaining rows to JSON objects
+        const jsonData = rows.slice(1).map(row => {
+          const values = row.split(',').map(cell => cell.trim());
+          const obj: any = {};
+          headers.forEach((header, index) => {
+            obj[header] = values[index] || '';
+          });
+          return obj;
+        });
+        
+        setCsvData(jsonData);
+        setIsProcessing(false);
+      } catch (error) {
+        console.error('Error parsing CSV:', error);
+        alert('Error parsing CSV file. Please check the file format.');
+        setIsProcessing(false);
+      }
+    };
+    
+    reader.onerror = () => {
+      alert('Error reading file');
+      setIsProcessing(false);
+    };
+    
+    reader.readAsText(selectedFile);
   };
 
   return (
@@ -367,10 +407,20 @@ const FinanceOfficerDashboard = () => {
                       </button>
                       <button
                         onClick={handleProceed}
-                        className="flex items-center gap-1 px-3 py-1.5 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors text-sm font-medium"
+                        disabled={isProcessing}
+                        className="flex items-center gap-1 px-3 py-1.5 bg-green-600 hover:bg-green-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-white rounded-lg transition-colors text-sm font-medium"
                       >
-                        <CheckCircle className="w-4 h-4" />
-                        Proceed
+                        {isProcessing ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            Processing...
+                          </>
+                        ) : (
+                          <>
+                            <CheckCircle className="w-4 h-4" />
+                            Proceed
+                          </>
+                        )}
                       </button>
                     </div>
                   </div>
@@ -420,6 +470,49 @@ const FinanceOfficerDashboard = () => {
             </div>
           </div>
         </div>
+
+        {/* CSV Preview Section - JSON Format */}
+        {csvData && (
+          <div className="bg-white rounded-xl shadow-sm border border-gray-100 mb-6 overflow-hidden">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-b-2 border-green-200 px-6 py-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <FileText className="w-6 h-6 text-green-700" />
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">CSV Data - JSON Format</h3>
+                    <p className="text-sm text-gray-600">{csvData.length} records parsed</p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleCancelFile}
+                  className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors font-medium"
+                >
+                  <X className="w-5 h-5" />
+                  Close Preview
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-6">
+              <div className="bg-gray-900 rounded-lg overflow-hidden border border-gray-700">
+                <div className="bg-gray-800 px-4 py-2 border-b border-gray-700">
+                  <p className="text-sm text-gray-300 font-mono">Parsed JSON Output:</p>
+                </div>
+                <div className="overflow-x-auto max-h-96 overflow-y-auto">
+                  <pre className="p-4 text-sm font-mono text-green-400">
+                    {JSON.stringify(csvData, null, 2)}
+                  </pre>
+                </div>
+              </div>
+              
+              <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <p className="text-sm text-blue-800">
+                  <strong>Note:</strong> The CSV file has been successfully parsed into JSON format. Each row is converted to an object with column headers as keys.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Program Filter Buttons */}
         {selectedProgram && (
