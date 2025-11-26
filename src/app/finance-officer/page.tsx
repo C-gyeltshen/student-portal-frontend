@@ -510,6 +510,15 @@ const FinanceOfficerDashboard = () => {
                   <strong>Note:</strong> The CSV file has been successfully parsed into JSON format. Each row is converted to an object with column headers as keys.
                 </p>
               </div>
+              
+              <div className="mt-4 flex justify-center">
+                <button
+                  onClick={() => console.log('Ready to send JSON to backend (API coming soon)')}
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-sm"
+                >
+                  Send
+                </button>
+              </div>
             </div>
           </div>
         )}
