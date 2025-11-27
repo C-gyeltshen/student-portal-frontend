@@ -20,7 +20,7 @@ import {
   Menu,
   X,
 } from "lucide-react";
-import Image from 'next/image';
+import Image from "next/image";
 
 // --- CollapsibleRow Component ---
 const CollapsibleRow = ({ college, students, isExpanded, onToggle }: any) => {
@@ -92,7 +92,9 @@ const CollapsibleRow = ({ college, students, isExpanded, onToggle }: any) => {
             <td className="px-3 sm:px-6 py-3 sm:py-4 hidden md:table-cell">
               <div className="flex items-center gap-2 text-gray-700">
                 <Mail className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                <span className="text-sm truncate">{student.email || "N/A"}</span>
+                <span className="text-sm truncate">
+                  {student.email || "N/A"}
+                </span>
               </div>
             </td>
             <td className="px-3 sm:px-6 py-3 sm:py-4 hidden lg:table-cell">
@@ -155,13 +157,13 @@ interface VerticalNavProps {
   setIsMobileMenuOpen: (open: boolean) => void;
 }
 
-const VerticalNav: React.FC<VerticalNavProps> = ({ 
-  currentPath, 
-  isMobileMenuOpen, 
-  setIsMobileMenuOpen 
+const VerticalNav: React.FC<VerticalNavProps> = ({
+  currentPath,
+  isMobileMenuOpen,
+  setIsMobileMenuOpen,
 }) => {
   const router = useRouter();
-  
+
   const navItems: NavItem[] = [
     {
       name: "Admin Dashboard",
@@ -179,7 +181,9 @@ const VerticalNav: React.FC<VerticalNavProps> = ({
       name: "Student Records",
       icon: GraduationCap,
       href: "/dashboard/student-records",
-      isActive: currentPath.includes("/dashboard/student-records") || currentPath === "/",
+      isActive:
+        currentPath.includes("/dashboard/student-records") ||
+        currentPath === "/",
     },
     {
       name: "Login as FO",
@@ -198,19 +202,23 @@ const VerticalNav: React.FC<VerticalNavProps> = ({
     <>
       {/* Mobile Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
-      
+
       {/* Navigation Sidebar - Fixed height to prevent movement */}
-      <div className={`
+      <div
+        className={`
         fixed lg:static inset-y-0 left-0 z-50
-        transform ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0
+        transform ${
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0
         transition-transform duration-300 ease-in-out
         w-64 bg-transparent lg:bg-transparent
-      `}>
+      `}
+      >
         <div className="h-full overflow-y-auto lg:overflow-visible bg-white lg:bg-transparent">
           {/* Mobile Close Button */}
           <div className="lg:hidden flex justify-end p-4">
@@ -244,7 +252,11 @@ const VerticalNav: React.FC<VerticalNavProps> = ({
                     `}
                   >
                     <div className="flex items-center gap-3">
-                      <Icon className={`w-5 h-5 ${item.isActive ? 'text-white' : 'text-blue-500'}`} />
+                      <Icon
+                        className={`w-5 h-5 ${
+                          item.isActive ? "text-white" : "text-blue-500"
+                        }`}
+                      />
                       <span className="font-medium text-sm">{item.name}</span>
                     </div>
                     {!item.isActive && (
@@ -262,7 +274,9 @@ const VerticalNav: React.FC<VerticalNavProps> = ({
             <div className="mt-6 mx-4 p-4 bg-white rounded-xl shadow-lg border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors">
               <div className="flex items-center gap-3">
                 <CreditCard className="w-5 h-5 text-indigo-500" />
-                <span className="text-sm font-medium text-gray-700">Fee Payment</span>
+                <span className="text-sm font-medium text-gray-700">
+                  Fee Payment
+                </span>
               </div>
               <ChevronRight className="w-4 h-4 text-gray-400" />
             </div>
@@ -414,10 +428,10 @@ const StudentDashboard = () => {
             <div className="flex items-center gap-2 sm:gap-3">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-b rounded-xl flex items-center justify-center overflow-hidden">
                 <Image
-                    src="/image/1.png"
-                    width={500}
-                    height={500}
-                    alt="Picture of the author"
+                  src="/image/1.png"
+                  width={500}
+                  height={500}
+                  alt="Picture of the author"
                   className="object-contain"
                 />
               </div>
@@ -433,7 +447,7 @@ const StudentDashboard = () => {
 
             {/* Finance Officer Button */}
             <button
-              onClick={() => router.push('/user/financial-officer')}
+              onClick={() => router.push("/user/financial-officer")}
               className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-sm shadow-sm"
             >
               <DollarSign className="w-4 h-4" />
@@ -446,9 +460,8 @@ const StudentDashboard = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
         {/* Main Content: Split Layout */}
         <div className="flex gap-4 lg:gap-8">
-          
           {/* Left Column: Navigation */}
-          <VerticalNav 
+          <VerticalNav
             currentPath={currentPath}
             isMobileMenuOpen={isMobileMenuOpen}
             setIsMobileMenuOpen={setIsMobileMenuOpen}
@@ -461,7 +474,9 @@ const StudentDashboard = () => {
               <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 border border-gray-100">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs sm:text-sm text-gray-600 mb-1">Total Students</p>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                      Total Students
+                    </p>
                     <p className="text-2xl sm:text-3xl font-bold text-gray-900">
                       {totalStudents}
                     </p>
@@ -475,7 +490,9 @@ const StudentDashboard = () => {
               <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 border border-gray-100">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs sm:text-sm text-gray-600 mb-1">Active Colleges</p>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                      Active Colleges
+                    </p>
                     <p className="text-2xl sm:text-3xl font-bold text-gray-900">
                       {groupedStudents.length}
                     </p>
@@ -489,7 +506,9 @@ const StudentDashboard = () => {
               <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 border border-gray-100 sm:col-span-2 lg:col-span-1">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs sm:text-sm text-gray-600 mb-1">Programs</p>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                      Programs
+                    </p>
                     <p className="text-2xl sm:text-3xl font-bold text-gray-900">
                       {new Set(students.map((s: any) => s.program)).size}
                     </p>
@@ -631,7 +650,9 @@ const StudentDashboard = () => {
                         >
                           <div className="flex flex-col items-center gap-2">
                             <User className="w-10 h-10 sm:w-12 sm:h-12 text-gray-300" />
-                            <p className="text-base sm:text-lg font-medium">No students found</p>
+                            <p className="text-base sm:text-lg font-medium">
+                              No students found
+                            </p>
                             <p className="text-xs sm:text-sm">
                               Try adjusting your search or filter criteria
                             </p>
