@@ -49,7 +49,7 @@ const VerticalNav: React.FC<VerticalNavProps> = ({
     {
       name: "Financial Officer",
       icon: DollarSign,
-      href: "/user/financial-officer",
+      href: "/user/",
       isActive: currentPath.includes("/user/financial-officer"),
     },
     {

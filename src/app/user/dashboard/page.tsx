@@ -172,7 +172,7 @@ const VerticalNav: React.FC<VerticalNavProps> = ({
     {
       name: "Financial Officer",
       icon: DollarSign,
-      href: "/user/financial-officer",
+      href: "/user/",
       isActive: currentPath.includes("/user/financial-officer"),
     },
     {
@@ -430,6 +430,15 @@ const StudentDashboard = () => {
                 </p>
               </div>
             </div>
+
+            {/* Finance Officer Button */}
+            <button
+              onClick={() => router.push('/user/financial-officer')}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-sm shadow-sm"
+            >
+              <DollarSign className="w-4 h-4" />
+              <span className="hidden sm:inline">Finance Officer</span>
+            </button>
           </div>
         </div>
       </div>
