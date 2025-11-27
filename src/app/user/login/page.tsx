@@ -59,7 +59,7 @@ const VerticalNav: React.FC<VerticalNavProps> = ({
       isActive: currentPath.includes("/dashboard/student-records"),
     },
     {
-      name: "Login",
+      name: "Login as FO",
       icon: GraduationCap,
       href: "/user/login",
       isActive: currentPath.includes("/dashboard/student-records"),
