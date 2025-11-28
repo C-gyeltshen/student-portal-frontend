@@ -21,6 +21,8 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import VerticalNav from "../component/VerticalNav";
+import { usePathname } from "next/navigation";
 
 // --- CollapsibleRow Component ---
 const CollapsibleRow = ({ college, students, isExpanded, onToggle }: any) => {
@@ -143,154 +145,9 @@ const CollapsibleRow = ({ college, students, isExpanded, onToggle }: any) => {
   );
 };
 
-// --- VerticalNav Component ---
-interface NavItem {
-  name: string;
-  icon: React.ElementType;
-  href: string;
-  isActive: boolean;
-}
-
-interface VerticalNavProps {
-  currentPath: string;
-  isMobileMenuOpen: boolean;
-  setIsMobileMenuOpen: (open: boolean) => void;
-}
-
-const VerticalNav: React.FC<VerticalNavProps> = ({
-  currentPath,
-  isMobileMenuOpen,
-  setIsMobileMenuOpen,
-}) => {
-  const router = useRouter();
-
-  const navItems: NavItem[] = [
-    {
-      name: "Admin Dashboard",
-      icon: LayoutDashboard,
-      href: "/user/dashboard",
-      isActive: currentPath.includes("/user/dashboard"),
-    },
-    {
-      name: "Financial Officer",
-      icon: DollarSign,
-      href: "/finance-officer",
-      isActive: currentPath.includes("/user/financial-officer"),
-    },
-    {
-      name: "Student Records",
-      icon: GraduationCap,
-      href: "/dashboard/student-records",
-      isActive:
-        currentPath.includes("/dashboard/student-records") ||
-        currentPath === "/",
-    },
-    {
-      name: "Login as FO",
-      icon: GraduationCap,
-      href: "/user/login",
-      isActive: currentPath.includes("/dashboard/student-records"),
-    },
-  ];
-
-  const handleNavClick = (href: string) => {
-    router.push(href);
-    setIsMobileMenuOpen(false);
-  };
-
-  return (
-    <>
-      {/* Mobile Overlay */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
-
-      {/* Navigation Sidebar - Fixed height to prevent movement */}
-      <div
-        className={`
-        fixed lg:static inset-y-0 left-0 z-50
-        transform ${
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:translate-x-0
-        transition-transform duration-300 ease-in-out
-        w-64 bg-transparent lg:bg-transparent
-      `}
-      >
-        <div className="h-full overflow-y-auto lg:overflow-visible bg-white lg:bg-transparent">
-          {/* Mobile Close Button */}
-          <div className="lg:hidden flex justify-end p-4">
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="p-2 rounded-lg hover:bg-gray-100"
-            >
-              <X className="w-6 h-6 text-gray-600" />
-            </button>
-          </div>
-
-          {/* Fixed height container to prevent navbar jumping */}
-          <div className="lg:sticky lg:top-4">
-            <div className="flex flex-col space-y-3 p-4 bg-white rounded-xl shadow-lg border border-gray-100">
-              <h3 className="text-lg font-semibold text-gray-800 border-b pb-2 mb-1">
-                Navigation
-              </h3>
-              {navItems.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <button
-                    key={item.name}
-                    onClick={() => handleNavClick(item.href)}
-                    className={`
-                      flex items-center justify-between px-4 py-3 rounded-lg transition-all duration-200 ease-in-out text-left
-                      ${
-                        item.isActive
-                          ? "bg-blue-600 text-white shadow-md ring-2 ring-blue-500/50"
-                          : "bg-white text-gray-700 hover:bg-blue-50 hover:text-blue-700"
-                      }
-                    `}
-                  >
-                    <div className="flex items-center gap-3">
-                      <Icon
-                        className={`w-5 h-5 ${
-                          item.isActive ? "text-white" : "text-blue-500"
-                        }`}
-                      />
-                      <span className="font-medium text-sm">{item.name}</span>
-                    </div>
-                    {!item.isActive && (
-                      <ChevronRight className="w-4 h-4 text-gray-400" />
-                    )}
-                    {item.isActive && (
-                      <div className="w-2 h-2 rounded-full bg-white ml-2"></div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Fee Payment Card */}
-            <div className="mt-6 mx-4 p-4 bg-white rounded-xl shadow-lg border border-gray-100 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors">
-              <div className="flex items-center gap-3">
-                <CreditCard className="w-5 h-5 text-indigo-500" />
-                <span className="text-sm font-medium text-gray-700">
-                  Fee Payment
-                </span>
-              </div>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
-
 const StudentDashboard = () => {
   const router = useRouter();
-  const [currentPath] = useState("/dashboard/student-records");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
   const [expandedColleges, setExpandedColleges] = useState<any>({});
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCollege, setSelectedCollege] = useState("all");
@@ -411,21 +268,18 @@ const StudentDashboard = () => {
   const totalStudents = filteredStudents.length;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-      {/* Header - Fixed to prevent movement */}
-      <div className="bg-white shadow-sm border-b sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-100"
-            >
-              <Menu className="w-6 h-6 text-gray-600" />
-            </button>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30 flex">
+      {/* Sidebar with VerticalNav */}
+      <div className="w-64 p-4 bg-gray-50 border-r border-gray-200">
+        <VerticalNav currentPath={pathname} />
+      </div>
 
-            {/* Logo and Title */}
-            <div className="flex items-center gap-2 sm:gap-3">
+      {/* Main Content */}
+      <div className="flex-1">
+        {/* Header */}
+        <div className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-40">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div className="flex items-center gap-3">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-b rounded-xl flex items-center justify-center overflow-hidden">
                 <Image
                   src="/image/1.png"
@@ -436,39 +290,26 @@ const StudentDashboard = () => {
                 />
               </div>
               <div>
-                <h1 className="text-lg sm:text-2xl font-bold text-gray-900">
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                   RUB Student Portal
                 </h1>
-                <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">
+                <p className="text-sm text-gray-500 hidden sm:block">
                   Royal University of Bhutan
                 </p>
               </div>
             </div>
-
-            {/* Finance Officer Button */}
             <button
               onClick={() => router.push("/user/financial-officer")}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-sm shadow-sm"
+              className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2.5 rounded-lg hover:bg-blue-700 transition-all font-medium text-sm sm:text-base shadow-sm hover:shadow-md"
             >
-              <DollarSign className="w-4 h-4" />
-              <span className="hidden sm:inline">Finance Officer</span>
+              <span className="hidden sm:inline">Manage Finance Officer</span>
             </button>
           </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-8">
-        {/* Main Content: Split Layout */}
-        <div className="flex gap-4 lg:gap-8">
-          {/* Left Column: Navigation */}
-          <VerticalNav
-            currentPath={currentPath}
-            isMobileMenuOpen={isMobileMenuOpen}
-            setIsMobileMenuOpen={setIsMobileMenuOpen}
-          />
-
-          {/* Right Column: Main Data View */}
-          <div className="flex-1 min-w-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+          {/* Main Data View */}
+          <div className="min-w-0">
             {/* Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
               <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 border border-gray-100">

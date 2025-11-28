@@ -49,7 +49,7 @@ const VerticalNav: React.FC<VerticalNavProps> = ({ currentPath }) => {
     {
       name: "Login as FO",
       icon: LayoutDashboard,
-      href: "/user/dashboard",
+      href: "/user/login",
       isActive: currentPath.includes("/dashboard/admin"),
     },
   ];
