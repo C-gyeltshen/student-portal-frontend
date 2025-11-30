@@ -11,14 +11,9 @@ import {
   Phone,
   Mail,
   Calendar,
-  CreditCard,
   Filter,
   Search,
   Download,
-  LayoutDashboard,
-  DollarSign,
-  Menu,
-  X,
 } from "lucide-react";
 import Image from "next/image";
 import VerticalNav from "../component/VerticalNav";
@@ -97,6 +92,9 @@ const CollapsibleRow = ({ college, students, isExpanded, onToggle }: any) => {
                 <span className="text-sm truncate">
                   {student.email || "N/A"}
                 </span>
+                <span className="text-sm truncate">
+                  {student.email || "N/A"}
+                </span>
               </div>
             </td>
             <td className="px-3 sm:px-6 py-3 sm:py-4 hidden lg:table-cell">
@@ -155,6 +153,15 @@ const StudentDashboard = () => {
   const [colleges, setColleges] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Authentication check
+  // useEffect(() => {
+  //   const isAuthenticated = localStorage.getItem("isAuthenticated");
+  //   if (!isAuthenticated) {
+  //     router.push("/user/login");
+  //     return;
+  //   }
+  // }, [router]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -318,6 +325,9 @@ const StudentDashboard = () => {
                     <p className="text-xs sm:text-sm text-gray-600 mb-1">
                       Total Students
                     </p>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                      Total Students
+                    </p>
                     <p className="text-2xl sm:text-3xl font-bold text-gray-900">
                       {totalStudents}
                     </p>
@@ -334,6 +344,9 @@ const StudentDashboard = () => {
                     <p className="text-xs sm:text-sm text-gray-600 mb-1">
                       Active Colleges
                     </p>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                      Active Colleges
+                    </p>
                     <p className="text-2xl sm:text-3xl font-bold text-gray-900">
                       {groupedStudents.length}
                     </p>
@@ -347,6 +360,9 @@ const StudentDashboard = () => {
               <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 border border-gray-100 sm:col-span-2 lg:col-span-1">
                 <div className="flex items-center justify-between">
                   <div>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-1">
+                      Programs
+                    </p>
                     <p className="text-xs sm:text-sm text-gray-600 mb-1">
                       Programs
                     </p>
@@ -494,6 +510,9 @@ const StudentDashboard = () => {
                             <p className="text-base sm:text-lg font-medium">
                               No students found
                             </p>
+                            <p className="text-base sm:text-lg font-medium">
+                              No students found
+                            </p>
                             <p className="text-xs sm:text-sm">
                               Try adjusting your search or filter criteria
                             </p>
@@ -513,3 +532,4 @@ const StudentDashboard = () => {
 };
 
 export default StudentDashboard;
+
