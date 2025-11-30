@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import VerticalNav from "../component/VerticalNav";
 import { usePathname } from "next/navigation";
-import Image from 'next/image';
+import Image from "next/image";
 
 // --- Components ---
 
@@ -626,7 +626,7 @@ export default function FinancialOfficerPage() {
                             handleChange("firstName", e.target.value)
                           }
                           placeholder="John"
-                          className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full px-3 py-2.5 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
                       <div>
@@ -640,7 +640,7 @@ export default function FinancialOfficerPage() {
                             handleChange("lastName", e.target.value)
                           }
                           placeholder="Doe"
-                          className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full px-3 py-2.5 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
                     </div>
@@ -660,7 +660,7 @@ export default function FinancialOfficerPage() {
                             handleChange("email", e.target.value)
                           }
                           placeholder="john.doe@rub.edu.bt"
-                          className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full pl-10 pr-3 py-2.5 text-gray-900 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                         />
                       </div>
                     </div>
