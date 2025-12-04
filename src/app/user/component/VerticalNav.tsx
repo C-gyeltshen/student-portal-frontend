@@ -41,7 +41,7 @@ const VerticalNav: React.FC<VerticalNavProps> = ({ currentPath }) => {
       name: "Student Records",
       icon: GraduationCap,
       // This includes the current view path and the root path if applicable
-      href: "/finance-officer",
+      href: "/finance-officerx",
       isActive:
         currentPath.includes("/dashboard/student-records") ||
         currentPath === "/",
