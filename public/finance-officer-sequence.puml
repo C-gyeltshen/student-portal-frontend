@@ -1,0 +1,53 @@
+@startuml Finance Officer CSV Upload Sequence
+
+title Finance Officer - CSV Upload & Process Flow
+
+actor "Finance Officer" as FO
+participant "Dashboard UI" as UI
+participant "File Reader" as FR
+participant "CSV Parser" as Parser
+participant "Backend API\n(Coming Soon)" as API
+database "Database" as DB
+
+== CSV Upload ==
+FO -> UI: Click "Upload CSV" button
+UI -> FO: Open file selector
+FO -> UI: Select CSV file
+UI -> UI: Validate file type (.csv)
+UI -> UI: Display file name & size
+
+== CSV Processing ==
+FO -> UI: Click "Proceed" button
+UI -> UI: Set processing state
+UI -> FR: Read CSV file
+FR -> Parser: Parse CSV text
+Parser -> Parser: Extract headers (row 1)
+Parser -> Parser: Convert rows to JSON objects
+Parser -> UI: Return JSON array
+UI -> UI: Display JSON output
+
+== Send to Backend (Future) ==
+FO -> UI: Click "Send" button
+note right of UI
+  Currently logs placeholder message:
+  "Ready to send JSON to backend 
+  (API coming soon)"
+end note
+
+UI -> API: POST /api/stipend/import\n{jsonData}
+activate API
+API -> API: Validate JSON structure
+API -> API: Check student IDs exist
+API -> DB: Update stipend records
+DB --> API: Confirmation
+API --> UI: Success response
+deactivate API
+UI -> FO: Show success message
+
+== Cancel/Reset ==
+FO -> UI: Click "Cancel" or "Close Preview"
+UI -> UI: Clear file selection
+UI -> UI: Reset CSV data
+UI -> UI: Reset to initial state
+
+@enduml

@@ -1,0 +1,92 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e6]:
+      - img "Picture of the author" [ref=e8]
+      - generic [ref=e9]:
+        - heading "RUB Student Portal" [level=1] [ref=e10]
+        - paragraph [ref=e11]: Royal University of Bhutan
+    - generic [ref=e13]:
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - heading "Navigation" [level=3] [ref=e18]
+          - button "Admin Dashboard" [ref=e19]:
+            - generic [ref=e20]:
+              - img [ref=e21]
+              - generic [ref=e26]: Admin Dashboard
+            - img [ref=e27]
+          - button "Financial Officer" [ref=e29]:
+            - generic [ref=e30]:
+              - img [ref=e31]
+              - generic [ref=e33]: Financial Officer
+            - img [ref=e34]
+          - button "Student Records" [ref=e36]:
+            - generic [ref=e37]:
+              - img [ref=e38]
+              - generic [ref=e41]: Student Records
+        - generic [ref=e43] [cursor=pointer]:
+          - generic [ref=e44]:
+            - img [ref=e45]
+            - generic [ref=e47]: Fee Payment
+          - img [ref=e48]
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - generic [ref=e53]:
+            - generic [ref=e54]:
+              - paragraph [ref=e55]: Total Students
+              - paragraph [ref=e56]: "1"
+            - img [ref=e58]
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - paragraph [ref=e64]: Active Colleges
+              - paragraph [ref=e65]: "1"
+            - img [ref=e67]
+          - generic [ref=e72]:
+            - generic [ref=e73]:
+              - paragraph [ref=e74]: Programs
+              - paragraph [ref=e75]: "4"
+            - img [ref=e77]
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - generic [ref=e83]:
+              - img [ref=e84]
+              - textbox "Search by name, ID, or email..." [active] [ref=e87]: tenzin.dorji@student
+            - generic [ref=e88]:
+              - img [ref=e89]
+              - combobox [ref=e91]:
+                - option "All Colleges" [selected]
+                - option "College of Science and Technology"
+                - option "College of Natural Resources"
+          - generic [ref=e92]:
+            - button "Expand All" [ref=e93]
+            - button "Collapse All" [ref=e94]
+            - button "Export" [ref=e95]:
+              - img [ref=e96]
+              - generic [ref=e99]: Export
+        - table [ref=e102]:
+          - rowgroup [ref=e103]:
+            - row "Student Email Phone Program DOB Enrolled Actions" [ref=e104]:
+              - columnheader "Student" [ref=e105]
+              - columnheader "Email" [ref=e106]
+              - columnheader "Phone" [ref=e107]
+              - columnheader "Program" [ref=e108]
+              - columnheader "DOB" [ref=e109]
+              - columnheader "Enrolled" [ref=e110]
+              - columnheader "Actions" [ref=e111]
+          - rowgroup [ref=e112]:
+            - row "College of Science and Technology 1 Students Enrolled 1" [ref=e113] [cursor=pointer]:
+              - cell "College of Science and Technology 1 Students Enrolled 1" [ref=e114]:
+                - generic [ref=e115]:
+                  - generic [ref=e116]:
+                    - img [ref=e118]
+                    - img [ref=e120]
+                    - generic [ref=e124]:
+                      - heading "College of Science and Technology" [level=3] [ref=e125]
+                      - paragraph [ref=e126]: 1 Students Enrolled
+                  - generic [ref=e128]: "1"
+  - button "Open Next.js Dev Tools" [ref=e134] [cursor=pointer]:
+    - img [ref=e135]
+  - alert [ref=e138]
+```

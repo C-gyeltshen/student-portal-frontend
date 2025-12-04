@@ -1,0 +1,91 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e5]:
+      - button [ref=e6]:
+        - img [ref=e7]
+      - generic [ref=e8]:
+        - img "Picture of the author" [ref=e10]
+        - heading "RUB Student Portal" [level=1] [ref=e12]
+    - generic [ref=e14]:
+      - generic [ref=e16]:
+        - button [ref=e18]:
+          - img [ref=e19]
+        - generic [ref=e22]:
+          - generic [ref=e23]:
+            - heading "Navigation" [level=3] [ref=e24]
+            - button "Admin Dashboard" [ref=e25]:
+              - generic [ref=e26]:
+                - img [ref=e27]
+                - generic [ref=e32]: Admin Dashboard
+              - img [ref=e33]
+            - button "Financial Officer" [ref=e35]:
+              - generic [ref=e36]:
+                - img [ref=e37]
+                - generic [ref=e39]: Financial Officer
+              - img [ref=e40]
+            - button "Student Records" [ref=e42]:
+              - generic [ref=e43]:
+                - img [ref=e44]
+                - generic [ref=e47]: Student Records
+          - generic [ref=e49] [cursor=pointer]:
+            - generic [ref=e50]:
+              - img [ref=e51]
+              - generic [ref=e53]: Fee Payment
+            - img [ref=e54]
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - generic [ref=e59]:
+            - generic [ref=e60]:
+              - paragraph [ref=e61]: Total Students
+              - paragraph [ref=e62]: "1"
+            - img [ref=e64]
+          - generic [ref=e68]:
+            - generic [ref=e69]:
+              - paragraph [ref=e70]: Active Colleges
+              - paragraph [ref=e71]: "1"
+            - img [ref=e73]
+          - generic [ref=e78]:
+            - generic [ref=e79]:
+              - paragraph [ref=e80]: Programs
+              - paragraph [ref=e81]: "4"
+            - img [ref=e83]
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - generic [ref=e89]:
+              - img [ref=e90]
+              - textbox "Search by name, ID, or email..." [active] [ref=e93]: TENZIN
+            - generic [ref=e94]:
+              - img [ref=e95]
+              - combobox [ref=e97]:
+                - option "All Colleges" [selected]
+                - option "College of Science and Technology"
+                - option "College of Natural Resources"
+          - generic [ref=e98]:
+            - button "Expand All" [ref=e99]
+            - button "Collapse All" [ref=e100]
+            - button "CSV" [ref=e101]:
+              - img [ref=e102]
+              - generic [ref=e105]: CSV
+        - table [ref=e108]:
+          - rowgroup [ref=e109]:
+            - row "Student Actions" [ref=e110]:
+              - columnheader "Student" [ref=e111]
+              - columnheader "Actions" [ref=e112]
+          - rowgroup [ref=e113]:
+            - row "College of Science and Technology 1 Students Enrolled 1" [ref=e114] [cursor=pointer]:
+              - cell "College of Science and Technology 1 Students Enrolled 1" [ref=e115]:
+                - generic [ref=e116]:
+                  - generic [ref=e117]:
+                    - img [ref=e119]
+                    - img [ref=e121]
+                    - generic [ref=e125]:
+                      - heading "College of Science and Technology" [level=3] [ref=e126]
+                      - paragraph [ref=e127]: 1 Students Enrolled
+                  - generic [ref=e129]: "1"
+  - button "Open Next.js Dev Tools" [ref=e135] [cursor=pointer]:
+    - img [ref=e136]
+  - alert [ref=e139]
+```
