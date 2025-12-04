@@ -308,12 +308,35 @@ const FinanceOfficerDashboard = () => {
         // Parse CSV into JSON
         const rows = text.split("\n").filter((row) => row.trim() !== "");
 
+        // Helper function to parse CSV row properly (handles quoted fields)
+        const parseCSVRow = (row: string): string[] => {
+          const result: string[] = [];
+          let current = "";
+          let inQuotes = false;
+
+          for (let i = 0; i < row.length; i++) {
+            const char = row[i];
+
+            if (char === '"') {
+              inQuotes = !inQuotes;
+            } else if (char === "," && !inQuotes) {
+              result.push(current.trim());
+              current = "";
+            } else {
+              current += char;
+            }
+          }
+
+          result.push(current.trim());
+          return result;
+        };
+
         // Get headers from first row
-        const headers = rows[0].split(",").map((header) => header.trim());
+        const headers = parseCSVRow(rows[0]);
 
         // Convert remaining rows to JSON objects
         const jsonData = rows.slice(1).map((row) => {
-          const values = row.split(",").map((cell) => cell.trim());
+          const values = parseCSVRow(row);
           const obj: any = {};
           headers.forEach((header, index) => {
             obj[header] = values[index] || "";
@@ -349,14 +372,30 @@ const FinanceOfficerDashboard = () => {
 
       // Transform CSV data to match backend schema
       const transformedData = csvData.map((row) => ({
-        last_name: row.last_name || row.name || "",
-        rub_id_card_number: row.rub_id_card_number || row.student_id || "",
+        student_id: row.student_id || "",
+        first_name: row.first_name || "",
+        last_name: row.last_name || "",
         email: row.email || "",
-        phone_number: row.phone_number || row.phone || "",
-        date_of_birth: row.date_of_birth || row.dob || "",
-        program_id: parseInt(row.program_id || "1"),
-        college_id: parseInt(row.college_id || "1"),
-        user_id: parseInt(row.user_id || "1"),
+        phone_number: row.phone_number || "",
+        cid: row.cid || "",
+        date_of_birth: row.date_of_birth || "",
+        gender: row.gender || "",
+        program_id: row.program_id ? parseInt(row.program_id) : undefined,
+        college_id: row.college_id ? parseInt(row.college_id) : undefined,
+        year_of_study: row.year_of_study
+          ? parseInt(row.year_of_study)
+          : undefined,
+        semester: row.semester ? parseInt(row.semester) : undefined,
+        gpa: row.gpa ? parseFloat(row.gpa) : undefined,
+        status: row.status || "active",
+        enrollment_date: row.enrollment_date || "",
+        graduation_date: row.graduation_date || "",
+        academic_standing: row.academic_standing || "",
+        permanent_address: row.permanent_address || "",
+        current_address: row.current_address || "",
+        guardian_name: row.guardian_name || "",
+        guardian_phone_number: row.guardian_phone_number || "",
+        guardian_relation: row.guardian_relation || "",
       }));
 
       console.log("Sending data:", transformedData);

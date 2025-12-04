@@ -195,7 +195,7 @@ export default function FinancialOfficerPage() {
 
   const FINANCIAL_OFFICER_ROLE_NAME = "Financial Officer";
   const HARDCODED_ROLE_ID = 2;
-  const API_BASE_URL = "http://localhost:8082";
+  const API_BASE_URL = "http://localhost:8080";
 
   const fetchOfficers = useCallback(async () => {
     setLoading(true);
@@ -203,7 +203,7 @@ export default function FinancialOfficerPage() {
 
     try {
       const usersResponse = await fetch(
-        `${API_BASE_URL}/users/role/${HARDCODED_ROLE_ID}`
+        `${API_BASE_URL}/api/users/role/${HARDCODED_ROLE_ID}`
       );
 
       if (!usersResponse.ok) {
@@ -310,13 +310,16 @@ export default function FinancialOfficerPage() {
           email: currentOfficer.email.trim(),
         };
 
-        const response = await fetch("/api/users/create/finance-officer", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
+        const response = await fetch(
+          "http://localhost:8080/api/users/create/finance-officer",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          }
+        );
 
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}));
